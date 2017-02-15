@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "express": "^4.13.1",
+    "nosql": "^3.0.3"
+}
+}
