@@ -8,7 +8,7 @@ var resource = {
 	"helloWorld" : ""
 };
 
-var vectors = [
+var v = 
     {
       desc: "ECDH-ES+A128KW + A128CBC-HS256",
       jwk: {
@@ -22,14 +22,16 @@ var vectors = [
       alg: "ECDH-ES+A128KW",
       enc: "A128CBC-HS256",
       plaintext: new Buffer("Gambling is illegal at Bushwood sir, and I never slice.", "utf8")
-    }
-];
+    };
 
 app.get("/", function(req, res){
-
+  
   var promise,
   key;
-  promise = JWK.asKey(vectors.jwk);
+
+  var plaintext;
+
+  promise = jose.JWK.asKey(v.jwk);
   promise = promise.then(function(jwk) {
     key = jwk;
     var cfg = {
@@ -41,26 +43,26 @@ app.get("/", function(req, res){
         alg: v.alg
       }
     };
-    var jwe = JWE.createEncrypt(cfg, recipient);
+    var jwe = jose.JWE.createEncrypt(cfg, recipient);
     return jwe.update(v.plaintext).final();
   });
   promise = promise.then(function(result) {
-
+    
     var jwe1 = {};
     jwe1.protected  = "eyJhbGciOiJFQ0RILUVTK0ExMjhLVyIsImVuYyI6IkExMjhDQkMtSFMyNTYiLCJlcGsiOnsia3R5IjoiRUMiLCJ4IjoiZ1RsaTY1ZVRRN3otQmgxNDdmZjhLM203azJVaURpRzJMcFlrV0FhRkpDYyIsInkiOiJjTEFuakthNGJ6akQ3REpWUHdhOUVQclJ6TUc3ck9OZ3NpVUQta2YzMEZzIiwiY3J2IjoiUC0yNTYifX0";
     jwe1.encrypted_key = "qGAdxtEnrV_3zbIxU2ZKrMWcejNltjA_dtefBFnRh9A2z9cNIqYRWg";
     jwe1.iv = "pEA5kX304PMCOmFSKX_cEg";
     jwe1.ciphertext = "a9fwUrx2JXi1OnWEMOmZhXd94-bEGCH9xxRwqcGuG2AMo-AwHoljdsH5C_kcTqlXS5p51OB1tvgQcMwB5rpTxg";
     jwe1.tag = "72CHiYFecyDvuUa43KKT6w";
-
-    assert.ok(result);
-    var jwe = JWE.createDecrypt(key);
+    
+    var jwe = jose.JWE.createDecrypt(key);
     return jwe.decrypt(jwe1);
   });
   promise = promise.then(function(result) {
-    return result.plaintext;
+    plaintext = result.plaintext;
+    res.send('{"helloWorld": "'+ plaintext+'"}');
   });
-  res.send('{"helloWorld": "'+promise+'"}');
+ 
 });
 
 
