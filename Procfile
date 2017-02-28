@@ -1,1 +1,1 @@
-web: node helloWorldJson.js
+web: node jwe-receiver.js
