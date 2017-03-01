@@ -1,12 +1,15 @@
 var express = require("express");
+var bodyParser = require('body-parser');
 var jose = require('node-jose');
 var nosql = require('nosql').load('database.nosql');
 var app = express();
+
 app.set('port', (process.env.PORT || 5000));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var JWE = jose.JWE;
 var JWK = jose.JWK;
-
 
 var v = 
     {
@@ -24,12 +27,12 @@ var v =
       plaintext: new Buffer("Gambling is illegal at Bushwood sir, and I never slice.", "utf8")
     };
 
-app.get("/", function(req, res){
-    
-  if (req.query.token) { 
+app.post("/", function(req, res){
+  
+  if (req.body.token) { 
     jose.JWK.asKey(v.jwk).then(function (key) {
       var jwe = JWE.createDecrypt(key);
-      return jwe.decrypt(req.query.token);
+      return jwe.decrypt(req.body.token);
     }).then(function () {
       res.status(200);
       res.send();
