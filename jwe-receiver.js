@@ -54,8 +54,8 @@ app.get("/ecdh-es-public.json", function(req, res){
         kty: "EC",
         kid: "3f7b122d-e9d2-4ff7-bdeb-a1487063d799",
         crv: "P-256",
-        x: "rslrVc6X5bn1lA6shyUfnHgC8MiT-qkarYXbMhz22AE",
-        y: "aHWEF49jGbgOrQeolUGEpdRotOp8HZxdvWTza2q_ifI"
+        x: "-FGbqex64RJzQkRfkLuimKkSdYNX7hbAnPjN28U_UWw",
+        y: "kPtFbM338rpGoQ_QiinJ4Tojr_0kl7oF_TCoZxSvyMQ"
       };
 
   res.json(jwk);
