@@ -32,23 +32,28 @@ app.get("/", function(req, res){
   res.send("<h2>Hi there! Just POST your secret to https://obscure-everglades-31759.herokuapp.com/secret</h2>");
 });
 
-app.post("/secret", function(req, res){
-  
-  if (req.body.token) { 
+app.all("/secret", function(req, res){
+  var token = req.body.token;
+
+  if (!token) {
+    token =   req.query.token;
+  }
+
+  if (token) { 
     jose.JWK.asKey(v.jwk).then(function (key) {
       var jwe = JWE.createDecrypt(key);
-      return jwe.decrypt(req.body.token);
+      return jwe.decrypt(token);
     }).then(function () {
       res.status(200);
-      res.send();
+      res.send("OK");
     }).catch(function (e) {
       console.log(e);
       res.status(400);
-      res.send();
+      res.send("Bad request");
     });
   } else {
-    res.status(404);
-    res.send({ error: 'Not found' });
+      res.status(400);
+      res.send("Bad request");
   }
 
 });
