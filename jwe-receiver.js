@@ -27,7 +27,12 @@ var v =
       plaintext: new Buffer("Gambling is illegal at Bushwood sir, and I never slice.", "utf8")
     };
 
-app.post("/", function(req, res){
+app.get("/", function(req, res){
+  res.status(200);
+  res.send("<h2>Hi there! Just POST your secret to https://obscure-everglades-31759.herokuapp.com/secret</h2>");
+});
+
+app.post("/secret", function(req, res){
   
   if (req.body.token) { 
     jose.JWK.asKey(v.jwk).then(function (key) {
