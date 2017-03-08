@@ -18,9 +18,9 @@ var v =
         "kty": "EC",
         "kid": "3f7b122d-e9d2-4ff7-bdeb-a1487063d799",
         "crv": "P-256",
-        "x": "-FGbqex64RJzQkRfkLuimKkSdYNX7hbAnPjN28U_UWw",
-        "y": "kPtFbM338rpGoQ_QiinJ4Tojr_0kl7oF_TCoZxSvyMQ",
-        "d": "A_8M"
+        "x": "ufQkXr3L841ATLhZ4rQ4e--udQtLWawOxmjVjg88Y8Q",
+        "y": "mEfxmKOAIqlEo9oAWpI8KUk82G7xh_2BOfTglU5GPss",
+        "d": "AFYY"
       },
       alg: "ECDH-ES+A128KW",
       enc: "A128CBC-HS256",
@@ -64,8 +64,8 @@ app.get("/ecdh-es-public.json", function(req, res){
         kty: "EC",
         kid: "3f7b122d-e9d2-4ff7-bdeb-a1487063d799",
         crv: "P-256",
-        x: "-FGbqex64RJzQkRfkLuimKkSdYNX7hbAnPjN28U_UWw",
-        y: "kPtFbM338rpGoQ_QiinJ4Tojr_0kl7oF_TCoZxSvyMQ"
+        x: "ufQkXr3L841ATLhZ4rQ4e--udQtLWawOxmjVjg88Y8Q",
+        y: "mEfxmKOAIqlEo9oAWpI8KUk82G7xh_2BOfTglU5GPss"
       };
 
   res.json(jwk);
